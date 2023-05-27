@@ -1,17 +1,20 @@
 package Api
 
 import (
+	"cycling-tracker-server/Services"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 type HttpApi struct {
-	router *gin.Engine
+	router      *gin.Engine
+	userService Services.UserService
 }
 
 func (api *HttpApi) Init() *HttpApi {
 	api.router = gin.Default()
+	api.userService = Services.UserService{}
 
 	api.router.Use(cors.New(cors.Config{
 		AllowOrigins: []string{"*"},
@@ -34,7 +37,7 @@ func (api *HttpApi) GetRouter() *gin.Engine {
 }
 
 func (api *HttpApi) bindEndpoints() {
-
+	api.router.POST("/api/v1/login", api.userService.LoginUser)
 }
 
 func (api *HttpApi) bindPing() {

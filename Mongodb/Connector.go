@@ -18,22 +18,22 @@ func ConnectToMongoDB() {
 
 	newMongoInstance, err := mongo.NewClient(options.Client().ApplyURI(Config.GetENVByKey("MONGODB_URL")))
 	if err != nil {
-		log.Printf("(ConnectToMongoDB) There was an error creating the mongoDB mongoDBInstance: %v", err)
+		log.Printf("There was an error creating the mongoDB mongoDBInstance: %v", err)
 	}
 
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	err = newMongoInstance.Connect(ctx)
 
 	if err != nil {
-		log.Printf("(ConnectToMongoDB) There was an error connecting to the mongoDB with mongoDBInstance: %v", err)
+		log.Printf("There was an error connecting to the mongoDB with mongoDBInstance: %v", err)
 	}
 
 	err = newMongoInstance.Ping(ctx, nil)
 	if err != nil {
-		log.Printf("(ConnectToMongoDB) There was an error pinging the mongodb database: %v", err)
+		log.Printf("There was an error pinging the mongodb database: %v", err)
 	}
 
-	log.Printf("(ConnectToMongoDB) Successfuly Connected to MongoDB")
+	log.Printf("Successfuly Connected to MongoDB")
 
 	mongoDBInstance = newMongoInstance
 }
@@ -47,5 +47,5 @@ func GetMongoDB() *mongo.Client {
 }
 
 func GetCollection(collection string) *mongo.Collection {
-	return GetMongoDB().Database("gis-together").Collection(collection)
+	return GetMongoDB().Database("cycling-tracker-db").Collection(collection)
 }
