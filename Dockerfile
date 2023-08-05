@@ -26,8 +26,10 @@ COPY --from=builder /go/cycling-tracker-server /go/cycling-tracker-server
 COPY .env /go/.env
 
 ENV PORT 8080
+ENV PORT 8081
 ENV GIN_MODE release
 EXPOSE 8080
+EXPOSE 8081
 
 WORKDIR /go
 
