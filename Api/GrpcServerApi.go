@@ -38,10 +38,12 @@ func (api *GrpcServerApi) StartServer(addr string) {
 	}
 
 	log.Printf("Start gRPC server on %s", addr)
-	err = api.server.Serve(listener)
-	if err != nil {
-		log.Fatal("Cannot create gRPC server: ", err)
-	}
+	go func() {
+		err = api.server.Serve(listener)
+		if err != nil {
+			log.Fatal("Cannot create gRPC server: ", err)
+		}
+	}()
 }
 
 func (api *GrpcServerApi) AddRide(context context.Context, request *Grpc.AddRideRequest) (*Grpc.AddRideResponse, error) {
