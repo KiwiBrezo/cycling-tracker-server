@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v4.22.2
-// source: AddRide.proto
+// source: add_ride.proto
 
-package Grpc
+package grpc
 
 import (
 	context "context"
@@ -101,5 +101,5 @@ var AddRideService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "AddRide.proto",
+	Metadata: "add_ride.proto",
 }

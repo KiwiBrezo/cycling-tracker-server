@@ -1,17 +1,17 @@
 package main
 
 import (
-	"cycling-tracker-server/Api"
-	"cycling-tracker-server/Mongodb"
+	"cycling-tracker-server/api"
+	"cycling-tracker-server/mongo_db"
 )
 
-// protoc --proto_path=Grpc/proto --go_out=. --go-grpc_out=. AddRide.proto
-// protoc --proto_path=Grpc/proto --go_out=. --go-grpc_out=. AddRideLocation.proto
+// protoc --proto_path=grpc/proto --go_out=. --go-grpc_out=. add_ride.proto
+// protoc --proto_path=grpc/proto --go_out=. --go-grpc_out=. add_ride_location.proto
 func main() {
-	var endpointRouter = Api.HttpApi{}
-	var grpcApi = Api.GrpcServerApi{}
+	var endpointRouter = api.HttpApi{}
+	var grpcApi = api.GrpcServerApi{}
 
-	Mongodb.ConnectToMongoDB()
+	mongo_db.ConnectToMongoDB()
 
 	endpointRouter.Init()
 	grpcApi.Init()

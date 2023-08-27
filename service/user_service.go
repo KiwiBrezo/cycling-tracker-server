@@ -1,8 +1,8 @@
-package Services
+package service
 
 import (
-	"cycling-tracker-server/Models"
-	"cycling-tracker-server/Repositories"
+	"cycling-tracker-server/models"
+	"cycling-tracker-server/repositorie"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"log"
@@ -10,15 +10,15 @@ import (
 )
 
 type UserService struct {
-	userRepository Repositories.UserRepository
+	userRepository repositorie.UserRepository
 }
 
 func (u *UserService) Init() {
-	u.userRepository = Repositories.UserRepository{}
+	u.userRepository = repositorie.UserRepository{}
 }
 
 func (u *UserService) LoginUser(c *gin.Context) {
-	var login Models.Login
+	var login models.Login
 
 	err := c.ShouldBindJSON(&login)
 

@@ -1,7 +1,7 @@
-package Api
+package api
 
 import (
-	"cycling-tracker-server/Services"
+	"cycling-tracker-server/service"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -9,12 +9,12 @@ import (
 
 type HttpApi struct {
 	router      *gin.Engine
-	userService Services.UserService
+	userService service.UserService
 }
 
 func (api *HttpApi) Init() *HttpApi {
 	api.router = gin.Default()
-	api.userService = Services.UserService{}
+	api.userService = service.UserService{}
 
 	api.router.Use(cors.New(cors.Config{
 		AllowOrigins: []string{"*"},

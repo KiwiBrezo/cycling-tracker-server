@@ -2,9 +2,9 @@
 // versions:
 // 	protoc-gen-go v1.28.1
 // 	protoc        v4.22.2
-// source: AddRide.proto
+// source: add_ride.proto
 
-package Grpc
+package grpc
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"

@@ -1,22 +1,22 @@
-package Services
+package service
 
 import (
-	"cycling-tracker-server/Grpc"
-	"cycling-tracker-server/Models"
-	"cycling-tracker-server/Repositories"
+	"cycling-tracker-server/grpc"
+	"cycling-tracker-server/models"
+	"cycling-tracker-server/repositorie"
 	"log"
 )
 
 type RideService struct {
-	rideRepository Repositories.RideRepository
+	rideRepository repositorie.RideRepository
 }
 
 func (r *RideService) Init() {
-	r.rideRepository = Repositories.RideRepository{}
+	r.rideRepository = repositorie.RideRepository{}
 }
 
-func (r RideService) AddRide(request Grpc.AddRideRequest) (err error) {
-	var newRide = Models.Ride{
+func (r RideService) AddRide(request grpc.AddRideRequest) (err error) {
+	var newRide = models.Ride{
 		RideId:    int(request.RideId),
 		UserId:    int(request.UserId),
 		TimeStart: request.GetTimeStart(),
@@ -33,8 +33,8 @@ func (r RideService) AddRide(request Grpc.AddRideRequest) (err error) {
 	return nil
 }
 
-func (r RideService) AddRideLocation(request Grpc.AddLocationRequest) (err error) {
-	var newRideLocation = Models.RideLocation{
+func (r RideService) AddRideLocation(request grpc.AddLocationRequest) (err error) {
+	var newRideLocation = models.RideLocation{
 		RideId:    int(request.RideId),
 		Timestamp: request.Timestamp,
 		Latitude:  request.Latitude,

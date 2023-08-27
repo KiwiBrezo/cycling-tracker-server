@@ -1,9 +1,9 @@
-package Api
+package api
 
 import (
 	"context"
-	"cycling-tracker-server/Grpc"
-	"cycling-tracker-server/Services"
+	"cycling-tracker-server/grpc"
+	"cycling-tracker-server/service"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"log"
@@ -11,20 +11,20 @@ import (
 )
 
 type GrpcServerApi struct {
-	Grpc.UnimplementedAddRideServiceServer
-	Grpc.UnimplementedAddRideLocationServiceServer
+	grpc.UnimplementedAddRideServiceServer
+	grpc.UnimplementedAddRideLocationServiceServer
 	server      *grpc.Server
-	rideService Services.RideService
+	rideService service.RideService
 }
 
 func (api *GrpcServerApi) Init() *GrpcServerApi {
 	api.server = grpc.NewServer()
-	api.rideService = Services.RideService{}
+	api.rideService = service.RideService{}
 
 	api.rideService.Init()
 
-	Grpc.RegisterAddRideServiceServer(api.server, api)
-	Grpc.RegisterAddRideLocationServiceServer(api.server, api)
+	grpc.RegisterAddRideServiceServer(api.server, api)
+	grpc.RegisterAddRideLocationServiceServer(api.server, api)
 
 	reflection.Register(api.server)
 
@@ -46,24 +46,24 @@ func (api *GrpcServerApi) StartServer(addr string) {
 	}()
 }
 
-func (api *GrpcServerApi) AddRide(context context.Context, request *Grpc.AddRideRequest) (*Grpc.AddRideResponse, error) {
+func (api *GrpcServerApi) AddRide(context context.Context, request *grpc.AddRideRequest) (*grpc.AddRideResponse, error) {
 	log.Println("gRPC called AddRide")
 
 	err := api.rideService.AddRide(*request)
 	if err == nil {
-		return &Grpc.AddRideResponse{IsUploaded: 1}, nil
+		return &grpc.AddRideResponse{IsUploaded: 1}, nil
 	} else {
-		return &Grpc.AddRideResponse{IsUploaded: 0}, nil
+		return &grpc.AddRideResponse{IsUploaded: 0}, nil
 	}
 }
 
-func (api *GrpcServerApi) AddRideLocation(ctx context.Context, request *Grpc.AddLocationRequest) (*Grpc.AddLocationResponse, error) {
+func (api *GrpcServerApi) AddRideLocation(ctx context.Context, request *grpc.AddLocationRequest) (*grpc.AddLocationResponse, error) {
 	log.Println("gRPC called AddRideLocation")
 
 	err := api.rideService.AddRideLocation(*request)
 	if err == nil {
-		return &Grpc.AddLocationResponse{IsUploaded: 1}, nil
+		return &grpc.AddLocationResponse{IsUploaded: 1}, nil
 	} else {
-		return &Grpc.AddLocationResponse{IsUploaded: 0}, nil
+		return &grpc.AddLocationResponse{IsUploaded: 0}, nil
 	}
 }

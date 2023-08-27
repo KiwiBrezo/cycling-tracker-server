@@ -1,4 +1,4 @@
-package Models
+package models
 
 type Ride struct {
 	RideId    int    `json:"rideId"`

@@ -1,8 +1,8 @@
-package Mongodb
+package mongo_db
 
 import (
 	"context"
-	"cycling-tracker-server/Config"
+	"cycling-tracker-server/config"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
@@ -16,7 +16,7 @@ func ConnectToMongoDB() {
 		return
 	}
 
-	newMongoInstance, err := mongo.NewClient(options.Client().ApplyURI(Config.GetENVByKey("MONGODB_URL")))
+	newMongoInstance, err := mongo.NewClient(options.Client().ApplyURI(config.GetENVByKey("MONGODB_URL")))
 	if err != nil {
 		log.Printf("There was an error creating the mongoDB mongoDBInstance: %v", err)
 	}
